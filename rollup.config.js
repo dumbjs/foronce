@@ -5,7 +5,7 @@ import { nodeExternals } from 'rollup-plugin-node-externals'
  */
 export default [
   {
-    input: './src/index.js',
+    input: ['./src/index.js', './src/base32.js'],
     plugins: [nodeExternals()],
     output: {
       entryFileNames: '[name].cjs',

@@ -11,6 +11,11 @@
       "import": "./src/index.js",
       "require": "./dist/index.cjs"
     },
+    "./base32": {
+      "types": "./dist/base32.d.ts",
+      "import": "./src/base32.js",
+      "require": "./dist/base32.cjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
@@ -63,7 +68,8 @@
     "files": [
       "dist/*.dts",
       "dist/*.ts",
-      "dist/*.js"
+      "dist/*.js",
+      "dist/*.cjs"
     ]
   }
 }
