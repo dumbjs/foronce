@@ -7,7 +7,7 @@
  */
 import { createHmac, randomBytes } from 'node:crypto'
 import { Buffer } from 'buffer'
-import base32 from 'hi-base32'
+import { decode, encode } from './base32.js'
 
 const { floor } = Math
 
@@ -22,7 +22,7 @@ const { floor } = Math
 export function totp(secret, when = floor(Date.now() / 1000), options = {}) {
   const _options = Object.assign({ period: 30 }, options)
   const now = floor(when / _options.period)
-  const key = base32.decode(secret)
+  const key = decode(secret)
   const buff = bigEndian64(BigInt(now))
   const hmac = createHmac('sha512', key).update(buff).digest()
   const offset = hmac[hmac.length - 1] & 0xf
@@ -80,5 +80,5 @@ function bigEndian64(hash) {
 }
 
 export function generateTOTPSecret(num = 32) {
-  return base32.encode(randomBytes(num).toString('ascii'))
+  return encode(randomBytes(num).toString('ascii'))
 }
