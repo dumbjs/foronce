@@ -1,12 +1,11 @@
-# foronce
+<p text-align="center">
+  <img src="https://og.barelyhuman.xyz/generate?fontSize=20&title=foronce&subtitle=The+OTP+Library&fontSizeTwo=8&color=%23a1a1aa&backgroundColor=%2318181b" />
+</p>
 
-- [foronce](#foronce)
-  - [Usage](#usage)
-    - [Examples](#examples)
-      - [One Time Email Validation](#one-time-email-validation)
-  - [API](#api)
-
-> TOTP in a few functions
+- [Usage](#usage)
+  - [Examples](#examples)
+    - [One Time Email Validation](#one-time-email-validation)
+- [API](#api)
 
 ## Usage
 
@@ -21,7 +20,7 @@
 #### One Time Email Validation
 
 ```ts
-import { generateTOTPSecret, totp, isTOTPValid } from 'foronce'
+import { generateTOTPSecret, isTOTPValid, totp } from 'foronce'
 
 app.post('/login', (req, res) => {
   const email = req.body.email
