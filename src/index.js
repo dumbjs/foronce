@@ -49,7 +49,7 @@ export function totp(secret, when = floor(Date.now() / 1000), options = {}) {
  * @param {"sha1" | "sha256" | "sha512"} [options.algorithm] (default: sha512)
  * @returns {boolean}
  */
-export function validateTOTP(secret, token, options = {}) {
+export function isTOTPValid(secret, token, options = {}) {
   const _options = Object.assign({ period: 30, algorithm: 'sha512' }, options)
   for (let index = -2; index < 3; index += 1) {
     const fromSys = totp(secret, Date.now() / 1000 + index, _options)
