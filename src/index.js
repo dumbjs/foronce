@@ -1,3 +1,9 @@
+/*!
+ * base-32.js
+ * Copyright(c) 2024 Reaper
+ * MIT Licensed
+ */
+
 /**
  * Simplified implementation of TOTP with existing node libs
  *
@@ -17,14 +23,15 @@ const { floor } = Math
  * @param {number} when
  * @param {object} [options]
  * @param {number} [options.period] in seconds (eg: 30 => 30 seconds)
+ * @param {"sha1" | "sha256" | "sha512"} [options.algorithm] (default: sha512)
  * @returns {string}
  */
 export function totp(secret, when = floor(Date.now() / 1000), options = {}) {
-  const _options = Object.assign({ period: 30 }, options)
+  const _options = Object.assign({ period: 30, algorithm: 'sha512' }, options)
   const now = floor(when / _options.period)
   const key = decode(secret)
   const buff = bigEndian64(BigInt(now))
-  const hmac = createHmac('sha512', key).update(buff).digest()
+  const hmac = createHmac(_options.algorithm, key).update(buff).digest()
   const offset = hmac[hmac.length - 1] & 0xf
   const truncatedHash = hmac.subarray(offset, offset + 4)
   const otp = (
@@ -39,10 +46,11 @@ export function totp(secret, when = floor(Date.now() / 1000), options = {}) {
  * @param {string} token
  * @param {object} [options]
  * @param {number} [options.period] in seconds (eg: 30 => 30 seconds)
+ * @param {"sha1" | "sha256" | "sha512"} [options.algorithm] (default: sha512)
  * @returns {boolean}
  */
-export function isValid(secret, token, options = {}) {
-  const _options = Object.assign({ period: 30 }, options)
+export function validateTOTP(secret, token, options = {}) {
+  const _options = Object.assign({ period: 30, algorithm: 'sha512' }, options)
   for (let index = -2; index < 3; index += 1) {
     const fromSys = totp(secret, Date.now() / 1000 + index, _options)
     const valid = fromSys === token

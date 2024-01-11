@@ -1,6 +1,6 @@
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
-import { generateTOTPSecret, isValid, totp } from '../src/index.js'
+import { generateTOTPSecret, validateTOTP, totp } from '../src/index.js'
 
 test('generate 2 different secrets', async () => {
   const secret = generateTOTPSecret()
@@ -15,7 +15,7 @@ test('dynamic isValid', async () => {
     period: period,
   }
   const otp = totp(secret, undefined, opts)
-  assert.ok(isValid(secret, otp, opts))
+  assert.ok(validateTOTP(secret, otp, opts))
 })
 
 test('static is valid', async () => {
