@@ -7,44 +7,40 @@
 // Simple implementation based of RFC 4648 for base32 encoding and decoding
 
 const pad = '='
-const base32alphaMap = {
-  0: 'A',
-  1: 'B',
-  2: 'C',
-  3: 'D',
-  4: 'E',
-  5: 'F',
-  6: 'G',
-  7: 'H',
-  8: 'I',
-  9: 'J',
-  10: 'K',
-  11: 'L',
-  12: 'M',
-  13: 'N',
-  14: 'O',
-  15: 'P',
-  16: 'Q',
-  17: 'R',
-  18: 'S',
-  19: 'T',
-  20: 'U',
-  21: 'V',
-  22: 'W',
-  23: 'X',
-  24: 'Y',
-  25: 'Z',
-  26: '2',
-  27: '3',
-  28: '4',
-  29: '5',
-  30: '6',
-  31: '7',
-}
-
-const base32alphaMapDecode = Object.fromEntries(
-  Object.entries(base32alphaMap).map(([k, v]) => [v, k])
-)
+const base32alphaMap = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+]
 
 /**
  * @param {string} str
@@ -119,8 +115,8 @@ export const decode = str => {
       if (x === pad) {
         return '00000'
       }
-      const d = base32alphaMapDecode[x]
-      const binary = parseInt(d, 10).toString(2)
+      const decodeIndex = base32alphaMap.indexOf(x)
+      const binary = decodeIndex.toString(2)
       return binary.padStart(5, '0')
     })
     .join('')
