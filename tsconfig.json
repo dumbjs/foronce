@@ -3,6 +3,7 @@
     "allowJs": true,
     "checkJs": true,
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "removeComments": true,
     "target": "esnext",
     "emitDeclarationOnly": true,
