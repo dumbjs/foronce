@@ -74,5 +74,8 @@
       "dist/*.js",
       "dist/*.cjs"
     ]
+  },
+  "dependencies": {
+    "uncrypto": "^0.1.3"
   }
 }

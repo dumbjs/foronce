@@ -11,9 +11,11 @@
  * - generate QR codes with the otpauth:// URL scheme
  * - algo and implmentation taken from https://drewdevault.com/2022/10/18/TOTP-is-easy.html
  */
-import { createHmac, randomBytes } from 'node:crypto'
 import { Buffer } from 'buffer'
+import { getRandomValues } from 'uncrypto'
 import { decode, encode } from './base32.js'
+import { createHmac } from './lib/crypto.js'
+import { bigEndian64 } from './lib/utils.js'
 
 const { floor } = Math
 
@@ -24,14 +26,18 @@ const { floor } = Math
  * @param {object} [options]
  * @param {number} [options.period] in seconds (eg: 30 => 30 seconds)
  * @param {"sha1" | "sha256" | "sha512"} [options.algorithm] (default: sha512)
- * @returns {string}
+ * @returns {Promise<string>}
  */
-export function totp(secret, when = floor(Date.now() / 1000), options = {}) {
+export async function totp(
+  secret,
+  when = floor(Date.now() / 1000),
+  options = {}
+) {
   const _options = Object.assign({ period: 30, algorithm: 'sha512' }, options)
   const now = floor(when / _options.period)
   const key = decode(secret)
   const buff = bigEndian64(BigInt(now))
-  const hmac = createHmac(_options.algorithm, key).update(buff).digest()
+  const hmac = await createHmac(_options.algorithm, key, buff)
   const offset = hmac[hmac.length - 1] & 0xf
   const truncatedHash = hmac.subarray(offset, offset + 4)
   const otp = (
@@ -47,12 +53,12 @@ export function totp(secret, when = floor(Date.now() / 1000), options = {}) {
  * @param {object} [options]
  * @param {number} [options.period] in seconds (eg: 30 => 30 seconds)
  * @param {"sha1" | "sha256" | "sha512"} [options.algorithm] (default: sha512)
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
-export function isTOTPValid(secret, token, options = {}) {
+export async function isTOTPValid(secret, token, options = {}) {
   const _options = Object.assign({ period: 30, algorithm: 'sha512' }, options)
   for (let index = -2; index < 3; index += 1) {
-    const fromSys = totp(secret, Date.now() / 1000 + index, _options)
+    const fromSys = await totp(secret, Date.now() / 1000 + index, _options)
     const valid = fromSys === token
     if (valid) return true
   }
@@ -77,16 +83,8 @@ export function generateTOTPURL(secret, options) {
   return new URL(url).toString()
 }
 
-/**
- * @param {bigint} hash
- * @returns {Buffer}
- */
-function bigEndian64(hash) {
-  const buf = Buffer.allocUnsafe(64 / 8)
-  buf.writeBigInt64BE(hash, 0)
-  return buf
-}
-
 export function generateTOTPSecret(num = 32) {
-  return encode(randomBytes(num).toString('ascii'))
+  const array = new Uint32Array(num)
+  const vals = getRandomValues(array)
+  return encode(Buffer.from(vals).toString('ascii'))
 }

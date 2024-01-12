@@ -14,14 +14,14 @@ test('dynamic isValid', async () => {
   const opts = {
     period: period,
   }
-  const otp = totp(secret, undefined, opts)
+  const otp = await totp(secret, undefined, opts)
   assert.ok(isTOTPValid(secret, otp, opts))
 })
 
 test('static is valid', async () => {
   const secret = 'JFLVYRQGJ5ZFOLSYO5HVOWIZGAYHOCTEGNLE2JYMNAMTCET3A5VQ===='
   const d = 1704875845134
-  const otp = totp(secret, d / 1000)
+  const otp = await totp(secret, d / 1000)
   assert.equal(otp, '' + 881718)
 })
 
