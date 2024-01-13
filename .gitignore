@@ -3,3 +3,4 @@
 .pnpm-debug.log
 /coverage
 .DS_Store
+/esm

@@ -6,12 +6,11 @@
     "skipLibCheck": true,
     "removeComments": true,
     "target": "esnext",
-    "emitDeclarationOnly": true,
     "declaration": true,
     "outDir": "dist",
     "esModuleInterop": true,
     "lib": ["esnext"]
   },
-  "include": ["src/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "tests"]
 }
