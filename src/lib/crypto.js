@@ -7,14 +7,6 @@ const algoMap = {
 }
 
 export async function createHmac(algorithm, secret, data) {
-  // let enc
-  // if (TextEncoder.constructor.length == 1) {
-  //   // @ts-ignore
-  //   enc = new TextEncoder('utf-8')
-  // } else {
-  //   enc = new TextEncoder()
-  // }
-
   const key = await subtle.importKey(
     'raw', // raw format of the key - should be Uint8Array
     secret,
