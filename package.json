@@ -47,7 +47,7 @@
     "prepare": "husky install",
     "size": "sizesnap",
     "test": "uvu -r tsm tests",
-    "test:ci": "c8 uvu r tsm tests "
+    "test:ci": "c8 uvu -r tsm tests "
   },
   "keywords": [
     "otp",
