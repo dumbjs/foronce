@@ -1,22 +1,22 @@
 {
   "dist/base32.d.ts": {
-    "size": "90B",
-    "brotli": "48B",
-    "gzip": "64B"
+    "size": "120B",
+    "brotli": "78B",
+    "gzip": "83B"
   },
   "dist/index.d.ts": {
-    "size": "367B",
-    "brotli": "143B",
-    "gzip": "178B"
+    "size": "553B",
+    "brotli": "194B",
+    "gzip": "245B"
   },
   "dist/base32.cjs": {
-    "size": "2.82KB",
-    "brotli": "931B",
-    "gzip": "1.073KB"
+    "size": "2.335KB",
+    "brotli": "761B",
+    "gzip": "870B"
   },
   "dist/index.cjs": {
-    "size": "2.621KB",
-    "brotli": "961B",
-    "gzip": "1.087KB"
+    "size": "2.446KB",
+    "brotli": "971B",
+    "gzip": "1.089KB"
   }
 }

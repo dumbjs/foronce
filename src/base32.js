@@ -129,8 +129,6 @@ export const decode = str => {
       return str.replace('\x00', '')
     })
     .join('')
-
-  return ''
 }
 
 const toBinary = (char, padLimit = 8) => {
