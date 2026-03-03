@@ -31,6 +31,7 @@ export function totp(secret, when = floor(Date.now() / 1000), options = {}) {
   const now = floor(when / _options.period)
   const key = decode(secret)
   const buff = bigEndian64(BigInt(now))
+  // @ts-expect-error buffers are allowed
   const hmac = createHmac(_options.algorithm, key).update(buff).digest()
   const offset = hmac[hmac.length - 1] & 0xf
   const truncatedHash = hmac.subarray(offset, offset + 4)
@@ -88,5 +89,5 @@ function bigEndian64(hash) {
 }
 
 export function generateTOTPSecret(num = 32) {
-  return encode(randomBytes(num).toString('ascii'))
+  return encode(randomBytes(num).toString('hex'))
 }

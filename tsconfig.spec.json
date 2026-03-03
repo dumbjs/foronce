@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "skipLibCheck": true,
+    "removeComments": true,
+    "target": "esnext",
+    "allowImportingTsExtensions": false,
+    "declaration": false,
+    "outDir": "dist-tests",
+    "esModuleInterop": true,
+    "lib": ["esnext"]
+  },
+  "include": ["tests/**/*"],
+  "exclude": ["node_modules"]
+}

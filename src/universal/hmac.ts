@@ -13,9 +13,10 @@ export async function createHmac(
   secret: string,
   data: Buffer
 ) {
+  const secretBuffer = !Buffer.isBuffer(secret) ? Buffer.from(secret, 'utf-8') : secret;
   const key = await subtle.importKey(
     'raw', // raw format of the key - should be Uint8Array
-    secret,
+    secretBuffer,
     {
       // algorithm details
       name: 'HMAC',

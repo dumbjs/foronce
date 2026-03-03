@@ -4,7 +4,7 @@ import {
   generateTOTPSecret,
   isTOTPValid,
   totp,
-} from '../src/universal/universal.ts'
+} from '../src/universal/universal.js'
 
 test('generate 2 different secrets', async () => {
   const secret = generateTOTPSecret()

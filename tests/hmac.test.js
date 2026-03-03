@@ -11,6 +11,7 @@ test('test if internal utility and subtle return the same result', async () => {
   const key = decode(secret)
   const buff = bigEndian64(BigInt(Math.floor(Date.now() / 1000 / 30)))
   const buffer = await createHmac('sha1', key, buff)
+  // @ts-expect-error buffers are allowed
   const nodeBuffer = nodeCreateHmac('sha1', key).update(buff).digest()
   assert.equal(buffer.toString('ascii'), nodeBuffer.toString('ascii'))
 })
